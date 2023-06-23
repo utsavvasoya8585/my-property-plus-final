@@ -21,7 +21,7 @@ function GridCard(props) {
                 <hr />
                 <div className='pt-2 font-bold flex flex-row items-center justify-between'>
                     <span>Utsav Vasoya</span>
-                    <span>{formattedDate}</span>
+                    <span> {formattedDate}</span>
                 </div>
             </div>
         </Link>

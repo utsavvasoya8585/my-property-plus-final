@@ -12,6 +12,13 @@ const propertyReducer = (state, action) => {
                 isLoading: false,
                 properties: action.payload,
             }
+        
+        case "SET_API_FEATURES_DATA":
+            return{
+                ...state,
+                isLoading: false,
+                features: action.payload,
+            }
 
         case "API_ERROR":
             return {

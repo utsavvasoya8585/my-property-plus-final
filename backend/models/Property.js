@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const PropertySchema = new mongoose.Schema({
+  featured: {
+    type: Boolean,
+    required: false
+  },
   name: {
     type: String,
     required: true

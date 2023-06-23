@@ -6,15 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { BlogProvider } from './context/blog_context';
 import { PropertyProvider } from './context/property_context';
+import { FilterProvider } from './context/filter_context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <PropertyProvider>
-        <BlogProvider>
-          <App />
-        </BlogProvider>
+        <FilterProvider>
+          <BlogProvider>
+            <App />
+          </BlogProvider>
+        </FilterProvider>
       </PropertyProvider>
     </BrowserRouter>
   </React.StrictMode>

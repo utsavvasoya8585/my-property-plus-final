@@ -4,6 +4,7 @@ import { uploadOnCloudinary } from '../blogs/upload';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function AddProperty() {
+    const [featured, setFeatured] = useState(false);
     const [name, setName] = useState("");
     const [floor, setFloor] = useState();
     const [facing, setFacing] = useState();
@@ -37,6 +38,7 @@ function AddProperty() {
         else {
             axios.get("/api/property/getproperty/" + id).then((response) => {
                 const { data } = response;
+                setFeatured(data[0].featured);
                 setName(data[0].name);
                 setFloor(data[0].floor);
                 setFacing(data[0].facing);
@@ -80,20 +82,20 @@ function AddProperty() {
 
         if (!id) {
             try {
-                const propertyData = { name, floor, facing, price, propertySize, propertyDes, address, images: arr, bedrooms, bathrooms, status, balcony, fStatus, category, gatedSecurity, lift, parking, water, veg, pets, features, googleLocation };
+                const propertyData = { featured, name, floor, facing, price, propertySize, propertyDes, address, images: arr, bedrooms, bathrooms, status, balcony, fStatus, category, gatedSecurity, lift, parking, water, veg, pets, features, googleLocation };
                 await axios.post("/api/property/addproperty", propertyData);
                 alert("Added");
                 navigate("/admin/property/allproperty");
             } catch (error) {
                 alert("this is error: ", error);
             }
-        }else{
-            try{
-                const propertyData = { name, floor, facing, price, propertySize, propertyDes, address, images: arr, bedrooms, bathrooms, status, balcony, fStatus, category, gatedSecurity, lift, parking, water, veg, pets, features, googleLocation };
-                await axios.put("/api/property/update/"+id, propertyData);
+        } else {
+            try {
+                const propertyData = { featured, name, floor, facing, price, propertySize, propertyDes, address, images: arr, bedrooms, bathrooms, status, balcony, fStatus, category, gatedSecurity, lift, parking, water, veg, pets, features, googleLocation };
+                await axios.put("/api/property/update/" + id, propertyData);
                 alert("Updated");
                 navigate("/admin/property/allproperty");
-            }catch(error){
+            } catch (error) {
                 alert("This is updation error: ", error);
             }
         }
@@ -103,6 +105,17 @@ function AddProperty() {
         <div className='text-xl flex flex-col items-center justify-center'>
             <div className='pt-10'>
                 <form className='flex flex-col gap-7' action="">
+
+                    {/* Featured */}
+                    <div className='flex flex-row items-center justify-between gap-4 text-black'>
+                        <div className='flex flex-row gap-2 items-center'>
+                            <label htmlFor="featured">  Featured?: </label>
+                            <input name='featured' type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} className='bg-gray-100 rounded-full text-[20px] px-5 py-2 h-6 w-6' />
+                        </div>
+                    </div>
+
+
+
                     {/* Name */}
                     <div className='flex flex-row items-center justify-between gap-4 text-black'>
                         <div className='w-[100%]'>

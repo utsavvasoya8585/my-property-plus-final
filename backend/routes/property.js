@@ -4,10 +4,10 @@ const router = express.Router();
 
 // Add Property Data
 router.post("/addproperty", async (req, res) => {
-  const { name, floor, facing, price, propertySize, propertyDes, address, images, bedrooms, bathrooms,status, balcony, fStatus, category, gatedSecurity, lift, parking, veg, pets, features, googleLocation } = req.body;
+  const { featured, name, floor, facing, price, propertySize, propertyDes, address, images, bedrooms, bathrooms,status, balcony, fStatus, category, gatedSecurity, lift, parking, veg, pets, features, googleLocation } = req.body;
   try {
     const propertyDoc = await Property.create({
-      name, floor, facing, price, propertySize, propertyDes, address, images, bedrooms, bathrooms,status, balcony, fStatus, category, gatedSecurity, lift, parking, veg, pets, features, googleLocation
+      featured, name, floor, facing, price, propertySize, propertyDes, address, images, bedrooms, bathrooms,status, balcony, fStatus, category, gatedSecurity, lift, parking, veg, pets, features, googleLocation
     });
     res.json(propertyDoc);
   } catch (e) {
@@ -48,12 +48,23 @@ router.get("/getproperty", async (req, res) => {
   try {
     const allProperty = await Property.find({});
     res.json(allProperty);
-    console.log(allProperty);
+    // console.log(allProperty);
   } catch (err) {
     console.log(err);
     res.status(500).send("Server Error");
   }
 });
+
+// get features properties
+router.get("/getfeaturesproperty", async(req, res) => {
+  try {
+    const propertyDoc = await Property.find({featured: true});
+    // console.log(propertyDoc)
+    res.json(propertyDoc);
+  }catch(e){
+    res.status(422).json(e);
+  }
+})
 
 // Delete
 router.delete(`/delete/:id`, async (req, res) => {

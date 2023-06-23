@@ -6,6 +6,7 @@ const PropertyContext = createContext();
 
 const initialState = {
     properties: [],
+    features: [],
     isLoading: false,
     isError: false,
 };
@@ -24,8 +25,20 @@ const PropertyProvider = ({ children }) => {
         }
     }
 
+    const getFeaturesProperties = async () => {
+        dispatch({type: "SET_LOADING"});
+        try{
+            const response = await axios.get("/api/property/getfeaturesproperty");
+            const features = await response.data;
+            dispatch({type: "SET_API_FEATURES_DATA", payload: features});
+        } catch (error) {
+            dispatch({type: "API_ERROR"});
+        }
+    }
+
     useEffect(() => {
         getProperties();
+        getFeaturesProperties();
     }, []);
 
     return (
