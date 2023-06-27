@@ -26,7 +26,8 @@ import Admin from './admin/Admin';
 import ScrollToTop from "./ScrollToTop";
 import { ToastContainer } from 'react-toastify';
 
-axios.defaults.baseURL = "http://localhost:4000";
+// axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://my-property-plus-backend.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {
